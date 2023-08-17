@@ -1,0 +1,13 @@
+vendor
+.DS_Store/
+.vscode/
+.idea/
+*.toml
+*.bz2
+*.zip
+log/
+test/
+conf/config.toml
+*.mod
+*.sum
+cloudserver

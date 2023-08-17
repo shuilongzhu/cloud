@@ -1,0 +1,775 @@
+basePath: /cloud/api
+definitions:
+  pojo.AddDeviceGroupReq:
+    properties:
+      device_group_name:
+        description: 设备组分组名称
+        type: string
+      user_group_id:
+        description: 用户分组id
+        type: string
+    required:
+    - device_group_name
+    - user_group_id
+    type: object
+  pojo.Channel:
+    properties:
+      chan_id:
+        type: string
+      chan_status:
+        description: '''通道状态'',1:在线；2:不在线；'','
+        type: integer
+      device_id:
+        type: string
+      id:
+        description: 主键id
+        type: string
+      level:
+        type: string
+      name:
+        type: string
+    type: object
+  pojo.Device:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/pojo.Channel'
+        type: array
+      device_group_id:
+        type: string
+      device_id:
+        type: string
+      device_install_address:
+        type: string
+      device_status:
+        description: '''设备状态 1:在线；2:不在线；'','
+        type: integer
+      id:
+        description: 主键id
+        type: string
+      level:
+        type: string
+      name:
+        type: string
+    type: object
+  pojo.DeviceGroup:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/pojo.Device'
+        type: array
+      device_group_id:
+        type: string
+      device_group_name:
+        type: string
+      id:
+        description: 主键id
+        type: string
+      level:
+        type: string
+    type: object
+  pojo.DeviceGroupInfoResp:
+    properties:
+      channel_count:
+        description: 通道摄像头数量
+        type: integer
+      created_time:
+        description: 创建时间
+        example: "2021-11-01 13:04:05"
+        type: string
+      device_count:
+        description: 设备数量
+        type: integer
+      device_group_id:
+        description: 设备分组id
+        type: string
+      group_name:
+        description: 分组名称
+        type: string
+    type: object
+  pojo.DeviceGroupReq:
+    properties:
+      device_group_id:
+        example: "10001"
+        type: string
+      device_group_name:
+        description: 设备组ID、
+        type: string
+    required:
+    - device_group_id
+    type: object
+  pojo.DeviceInfo:
+    properties:
+      airia_ship:
+        description: 单兵中airiaShip版本信息
+        example: "1"
+        type: string
+      authorization_time:
+        description: 授权的时间
+        example: "1"
+        type: string
+      chip_platform:
+        description: 芯片平台
+        type: string
+      device_id:
+        description: 设备ID、 全部：默认为空
+        example: "1"
+        type: string
+      device_name:
+        description: 设备名称  全部：默认为空
+        example: "1"
+        type: string
+      device_status:
+        description: '''设备状态 1:在线；2:不在线；0：全部【默认】'','
+        example: 1
+        type: integer
+      hardware_model:
+        description: 硬件型号
+        example: "1"
+        type: string
+      hardware_version:
+        description: 硬件版本
+        type: string
+      product_name:
+        type: string
+      product_type:
+        description: 产品类型 1:计算盒子；2:布控球；100：全部【默认】
+        example: 1
+        type: integer
+      software_name:
+        description: 内置软件名称 全部：默认为空
+        example: "1"
+        type: string
+      system_architecture:
+        description: 架构 arm64、x86 全部：默认为空
+        example: arm64
+        type: string
+    type: object
+  pojo.DeviceOverviewResp:
+    properties:
+      channel_count:
+        description: 通道摄像头数量
+        type: integer
+      device_count:
+        description: 设备数量
+        type: integer
+      online_channel_count:
+        description: 在线通道摄像头数量
+        type: integer
+      online_channel_ratio:
+        description: 在线通道摄像头占比
+        type: number
+      online_device_count:
+        description: 在线设备数量
+        type: integer
+      online_device_ratio:
+        description: 在线设备占比
+        type: number
+    type: object
+  pojo.LoginReq:
+    properties:
+      login_ip:
+        description: 请求ip地址
+        example: 127.0.0.1
+        type: string
+      password:
+        description: 密码
+        type: string
+      user_name:
+        description: 用户名
+        type: string
+      verification_code:
+        description: 验证码
+        example: "123456"
+        type: string
+    required:
+    - password
+    - user_name
+    type: object
+  pojo.QueryDeviceChannelInfoReq:
+    properties:
+      current_page_id:
+        description: 当前页面id
+        example: 1
+        type: integer
+      device_id:
+        description: 设备id
+        type: string
+      page_count:
+        description: 每页条数
+        example: 10
+        type: integer
+    required:
+    - current_page_id
+    - device_id
+    - page_count
+    type: object
+  pojo.QueryDeviceGroupInfoReq:
+    properties:
+      current_page_id:
+        description: 当前页面id
+        example: 1
+        type: integer
+      device_group_name:
+        description: 设备组名称、
+        type: string
+      page_count:
+        description: 每页条数
+        example: 10
+        type: integer
+    type: object
+  pojo.QueryDeviceGroupInfoResp:
+    properties:
+      device_group_info:
+        items:
+          $ref: '#/definitions/pojo.DeviceGroupInfoResp'
+        type: array
+      page_num:
+        description: 总页数
+        example: 10
+        type: integer
+      total_count:
+        description: 总记录条数
+        example: 100
+        type: integer
+    type: object
+  pojo.RegisterReq:
+    properties:
+      email:
+        example: abc123@163.com
+        type: string
+      nick_name:
+        type: string
+      num:
+        type: string
+      role:
+        type: integer
+      user_group_id:
+        type: string
+      user_group_name:
+        type: string
+      user_name:
+        type: string
+      user_password:
+        type: string
+    required:
+    - nick_name
+    - num
+    - role
+    - user_group_id
+    - user_group_name
+    - user_name
+    - user_password
+    type: object
+  pojo.ResponseTemplate:
+    properties:
+      code:
+        description: 请求code码
+        type: integer
+      data:
+        description: 响应数据
+      message:
+        description: 响应信息
+        type: string
+      request_id:
+        description: 请求id
+        type: string
+    type: object
+  pojo.UpdateDeviceInfoReq:
+    properties:
+      device_group_id:
+        description: 设备组ID、
+        type: string
+      device_id:
+        description: 设备ID
+        type: string
+      device_install_address:
+        description: 设备安装位置
+        type: string
+      device_name:
+        description: 设备名称
+        type: string
+    required:
+    - device_id
+    type: object
+host: 172.10.50.41:5022
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: video-compress-cloud Project API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: VideoCompressCloud API
+  version: 3.6.5
+paths:
+  /device/add_group:
+    post:
+      consumes:
+      - application/json
+      description: 添加设备分组
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Authorization-Token
+        required: true
+        type: string
+      - description: AddDeviceGroupReq
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/pojo.AddDeviceGroupReq'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 添加设备分组
+      tags:
+      - device_manage
+  /device/basic_info:
+    get:
+      consumes:
+      - application/json
+      description: 设备详细基本信息
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Authorization-Token
+        required: true
+        type: string
+      - description: device_id
+        in: query
+        name: device_id
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.DeviceInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 设备详细基本信息
+      tags:
+      - device_manage
+  /device/channel/basic_info:
+    get:
+      consumes:
+      - application/json
+      description: 获取通道详细基本信息
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Authorization-Token
+        required: true
+        type: string
+      - description: device_id
+        in: query
+        name: device_id
+        required: true
+        type: string
+      - description: channel_id
+        in: query
+        name: channel_id
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.DeviceInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 获取通道详细基本信息
+      tags:
+      - device_manage
+  /device/channel_info:
+    post:
+      consumes:
+      - application/json
+      description: 获取设备通道信息 【分页】
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Authorization-Token
+        required: true
+        type: string
+      - description: QueryDeviceChannelInfoReq
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/pojo.QueryDeviceChannelInfoReq'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.DeviceOverviewResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 获取设备通道信息 【分页】
+      tags:
+      - device_manage
+  /device/delete_group:
+    post:
+      consumes:
+      - application/json
+      description: 删除设备分组
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Authorization-Token
+        required: true
+        type: string
+      - description: DeviceGroupReq
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/pojo.DeviceGroupReq'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 删除设备分组
+      tags:
+      - device_manage
+  /device/group_info:
+    post:
+      consumes:
+      - application/json
+      description: 查询设备组信息列表 【分页】
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Authorization-Token
+        required: true
+        type: string
+      - description: QueryDeviceGroupInfoReq
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/pojo.QueryDeviceGroupInfoReq'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.QueryDeviceGroupInfoResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 查询设备组信息列表 【分页】
+      tags:
+      - device_manage
+  /device/heartbeat:
+    post:
+      consumes:
+      - application/json
+      description: 定时上报设备心跳,接收设备最新资源数据
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Authorization-Token
+        required: true
+        type: string
+      - description: QueryDeviceGroupInfoReq
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/pojo.QueryDeviceGroupInfoReq'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.DeviceOverviewResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 定时上报设备心跳,接收设备最新资源数据
+      tags:
+      - device_manage
+  /device/overview:
+    post:
+      consumes:
+      - application/json
+      description: 设备总览，所有设备通道数量状态
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Authorization-Token
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.DeviceOverviewResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 设备总览，所有设备通道数量状态
+      tags:
+      - device_manage
+  /device/resource_data:
+    get:
+      consumes:
+      - application/json
+      description: 查询设备使用资源数据
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Authorization-Token
+        required: true
+        type: string
+      - description: device_id
+        in: query
+        name: device_id
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 查询设备使用资源数据
+      tags:
+      - device_manage
+  /device/tree:
+    get:
+      consumes:
+      - application/json
+      description: 查询此用户下的所有设备及通道
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Authorization-Token
+        required: true
+        type: string
+      - description: user_id
+        in: query
+        name: user_id
+        type: string
+      - description: device_status
+        in: query
+        name: device_status
+        type: string
+      - description: product_type
+        in: query
+        name: product_type
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.DeviceGroup'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 查询设备树目录结构
+      tags:
+      - device_manage
+  /device/update:
+    post:
+      consumes:
+      - application/json
+      description: 编辑设备信息
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Authorization-Token
+        required: true
+        type: string
+      - description: UpdateDeviceInfoReq
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/pojo.UpdateDeviceInfoReq'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 编辑设备信息
+      tags:
+      - device_manage
+  /device/update_group:
+    post:
+      consumes:
+      - application/json
+      description: 编辑设备分组
+      parameters:
+      - description: Authentication header
+        in: header
+        name: Authorization-Token
+        required: true
+        type: string
+      - description: DeviceGroupReq
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/pojo.DeviceGroupReq'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 编辑设备分组
+      tags:
+      - device_manage
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录
+      parameters:
+      - description: LoginReq
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/pojo.LoginReq'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 用户登录
+      tags:
+      - user_manage
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: 用户注册
+      parameters:
+      - description: RegisterReq
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/pojo.RegisterReq'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pojo.ResponseTemplate'
+      summary: 用户注册
+      tags:
+      - user_manage
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+  BasicAuth:
+    type: basic
+  OAuth2AccessCode:
+    authorizationUrl: https://example.com/oauth/authorize
+    flow: accessCode
+    scopes:
+      admin: '                            Grants read and write access to administrative
+        information'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+  OAuth2Application:
+    flow: application
+    scopes:
+      admin: '                             Grants read and write access to administrative
+        information'
+      write: '                             Grants write access'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+  OAuth2Implicit:
+    authorizationUrl: https://example.com/oauth/authorize
+    flow: implicit
+    scopes:
+      admin: '                          Grants read and write access to administrative
+        information'
+      write: '                          Grants write access'
+    type: oauth2
+  OAuth2Password:
+    flow: password
+    scopes:
+      admin: '                          Grants read and write access to administrative
+        information'
+      read: '                           Grants read access'
+      write: '                          Grants write access'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+swagger: "2.0"
