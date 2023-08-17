@@ -1,5 +1,5 @@
-create database video_compress;
-use video_compress;
+create database cloud;
+use cloud;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------

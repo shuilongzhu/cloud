@@ -20,7 +20,7 @@ mysql_hostname     ="172.10.50.239" #测试  172.10.60.52;      172.10.50.238
 mysql_port         ="3306"
 mysql_user         ="maicro"
 mysql_pass         ="Maicro@2314" #Airia@2314
-mysql_database_name ="video_compress"
+mysql_database_name ="cloud"
 charset="utf8mb4"
 # 设置闲置的连接数，默认值为2；
 max_idle_conn=20
